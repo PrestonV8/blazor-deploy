@@ -23,7 +23,13 @@
 <p></p>
 <p></p>
 
-@if (weather == null && inputData.LatLong != null)
+
+@if (errorString != "")
+{
+    <h2>@errorString</h2>
+    <h4>You Entered: @inputData.LatLong</h4>
+}
+else if (weather == null && inputData.LatLong != null)
 {
     <h2>Loading...</h2>
 }
@@ -60,12 +66,13 @@ else if (weather is not null)
     </table>
 }
 
+
 @code
 {
     WeatherModel weather = null;
     string errorString = "";
     private WeatherInputModel inputData = new();
-    protected override async Task OnInitializedAsync()
+    protected async Task OnInitializedAsync()
     {
         var apiRequest = new HttpRequestMessage(HttpMethod.Get,
         $"https://api.pirateweather.net/forecast/umdnQ8KpxzXNbiDapaQjVouwxA5PGRAW/{inputData.LatLong}");
@@ -77,11 +84,11 @@ else if (weather is not null)
         if (response.IsSuccessStatusCode)
         {
             weather = await response.Content.ReadFromJsonAsync<WeatherModel>();
-            errorString = null;
+            errorString = "";
         }
         else
         {
-            errorString = $"There was an error getting weather data: {response.ReasonPhrase}";
+            errorString = $"Error at getting weather data: {response.ReasonPhrase}";
         }
     }
 }
