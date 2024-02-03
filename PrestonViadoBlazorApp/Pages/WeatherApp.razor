@@ -1,9 +1,73 @@
 ﻿@page "/CodeLab/WeatherApp"
+@using PrestonViadoBlazorApp.Models
+@inject IHttpClientFactory _clientFactory
 
 <PageTitle>Weather App</PageTitle>
 
 <h1>Weather App</h1>
 
-@code {
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <div class="h2">@errorString</div>
+}
+else if (weather is null)
+{
+    <div class="h4">Loading...</div>
+}
+else
+{
+    <h2>
+        Rockville, MD:
+        <b>@weather.currently.temperature&degF</b>
+    </h2>
+    <h3>State: @weather.currently.summary</h3>
 
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Weather State</th>
+                <th>Low</th>
+                <th>High</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var day in weather.daily.data)
+            {
+                <tr>
+                    <td>
+                        @DateTimeOffset.FromUnixTimeSeconds(day.time).DayOfWeek
+                        @DateTimeOffset.FromUnixTimeSeconds(day.time).Month/@DateTimeOffset.FromUnixTimeSeconds(day.time).Day/@DateTimeOffset.FromUnixTimeSeconds(day.time).Year
+                    </td>
+                    <td>@day.apparentTemperatureMin&degF</td>
+                    <td>@day.apparentTemperatureMax&degF</td>
+                    <td>@day.summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    WeatherModel weather;
+    string errorString;
+    protected override async Task OnInitializedAsync()
+    {
+        var apiRequest = new HttpRequestMessage(HttpMethod.Get,
+        "https://api.pirateweather.net/forecast/umdnQ8KpxzXNbiDapaQjVouwxA5PGRAW/39.083996,-77.152756");
+
+        var client = _clientFactory.CreateClient();
+
+        HttpResponseMessage response = await client.SendAsync(apiRequest);
+
+        if (response.IsSuccessStatusCode)
+        {
+            weather = await response.Content.ReadFromJsonAsync<WeatherModel>();
+            errorString = null;
+        }
+        else
+        {
+            errorString = $"There was an error getting weather data: {response.ReasonPhrase}";
+        }
+    }
 }
