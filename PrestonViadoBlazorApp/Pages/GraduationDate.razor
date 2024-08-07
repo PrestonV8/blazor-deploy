@@ -4,6 +4,35 @@
 
 <h1>Countdown Timer to Preston's Graduation</h1>
 
-@code {
+<h2>@remainingTime</h2>
 
+
+@code {
+    private DateTime graduationDate = new DateTime(2025, 5, 22, 10, 0, 0);
+    private string remainingTime;
+    private System.Timers.Timer timer;
+
+    protected override void OnInitialized()
+    {
+        UpdateTime();
+        timer = new System.Timers.Timer(1000); // 1 second intervals
+        timer.Elapsed += (sender, e) => InvokeAsync(UpdateTime);
+        timer.Start();
+    }
+
+    private void UpdateTime()
+    {
+        TimeSpan timeGap = graduationDate - DateTime.Now;
+
+        if (timeGap.TotalMilliseconds <= 0)
+        {
+            remainingTime = "Preston has reached graduation!!!";
+        }
+        else
+        {
+            remainingTime = $"{timeGap.Days} Days : {timeGap.Hours} Hours : {timeGap.Minutes} Minutes : {timeGap.Seconds} Seconds";
+        }
+
+        InvokeAsync(StateHasChanged);
+    }
 }
