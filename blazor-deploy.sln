@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestonViadoBlazorApp", "PrestonViadoBlazorApp\PrestonViadoBlazorApp.csproj", "{8B61B8B3-1755-4448-B514-46DF4395B567}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestonWebsiteLibrary", "PrestonWebsiteLibrary\PrestonWebsiteLibrary.csproj", "{56198A22-3227-48BB-A436-D95CA37E9739}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8B61B8B3-1755-4448-B514-46DF4395B567}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B61B8B3-1755-4448-B514-46DF4395B567}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B61B8B3-1755-4448-B514-46DF4395B567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56198A22-3227-48BB-A436-D95CA37E9739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56198A22-3227-48BB-A436-D95CA37E9739}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56198A22-3227-48BB-A436-D95CA37E9739}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56198A22-3227-48BB-A436-D95CA37E9739}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
