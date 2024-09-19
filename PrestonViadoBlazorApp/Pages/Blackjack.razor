@@ -1,0 +1,74 @@
+﻿@page "/CodeLab/Blackjack"
+@using PrestonViadoBlazorApp.BlackjackActions
+
+<PageTitle>Blackjack</PageTitle>
+
+<h1>Welcome to Blackjack!</h1>
+
+
+<button class="btn btn-primary btn-lg" @onclick="StartButtonClick">Start</button>
+<button class="btn btn-primary btn-lg" @onclick="HitButtonClick">Hit</button>
+<button class="btn btn-primary btn-lg" @onclick="StandButtonClick">Stand</button>
+
+<pre style="font-size: 32px">@message</pre> @* pre allows for escape characters in HTML *@
+<pre style="font-size: 40px; font-weight: bold">@result</pre> @* html tag with multiple style attributes *@
+
+@code
+{
+    private string message = "";
+    private string result = "";
+    private bool gameStatus = false;
+
+    PlayerActions dealer = new();
+    PlayerActions player = new();
+
+    private void StartButtonClick()
+    {
+        message = "";
+        result = "";
+        gameStatus = true; // change the game status
+        dealer = new PlayerActions { Name = "Dealer" };
+        player = new PlayerActions { Name = "Player" };
+        message = player.InitializeGame(dealer, message);
+    }
+
+    private void HitButtonClick()
+    {
+        int endGameType = 2;
+
+        // check if the game started first
+        if (gameStatus == false)
+        {
+            return;
+        }
+
+        message = player.HitAction(dealer);
+
+        endGameType = player.CheckDeck();
+        if (endGameType == 0)
+        {
+            result = "Player over 21. Player Loss\nTo play again, select \"Start\"";
+            gameStatus = false;
+        }
+        else if (endGameType == 1)
+        {
+            result = "21 found. Player wins!\nTo play again, select \"Start\"";
+            gameStatus = false;
+        }
+    }
+
+    private void StandButtonClick()
+    {
+        // prevent stand action if the game is not active
+        if (gameStatus == false)
+        {
+            return;
+        }
+
+        gameStatus = false;
+
+
+        message = player.StandAction(dealer);
+        result = player.CheckOutcome(dealer);
+    }
+}
