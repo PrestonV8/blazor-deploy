@@ -1,11 +1,12 @@
 ﻿<div class="exp-card" style="animation-delay:@(Delay)ms">
-    <div class="exp-thumb tint-@(Tint % 4)">
+    <div class="exp-thumb @(HasImage ? "has-img" : $"tint-{Tint % 4}")"
+         style="@(!string.IsNullOrWhiteSpace(Background) ? $"background:{Background}" : null)">
         @if (Current)
         {
             <span class="exp-pill">Current</span>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Image))
+        @if (HasImage)
         {
             <img src="@Image" alt="@Company" loading="lazy" />
         }
@@ -33,4 +34,7 @@
     [Parameter] public bool Current { get; set; }
     [Parameter] public int Tint { get; set; }
     [Parameter] public int Delay { get; set; }
+    [Parameter] public string? Background { get; set; }
+
+    private bool HasImage => !string.IsNullOrWhiteSpace(Image);
 }
