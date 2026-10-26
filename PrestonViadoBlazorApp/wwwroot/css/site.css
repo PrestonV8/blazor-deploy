@@ -389,3 +389,27 @@
         object-fit: contain;
         padding: 6%;
     }
+
+/* ===== Nav icons ===== */
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.top-nav a.nav-icon {
+    display: flex;
+    align-items: center;
+}
+
+.nav-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform .2s ease;
+}
+
+.nav-icon:hover svg {
+    transform: scale(1.1);
+}
