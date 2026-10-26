@@ -1,0 +1,36 @@
+﻿<div class="exp-card" style="animation-delay:@(Delay)ms">
+    <div class="exp-thumb tint-@(Tint % 4)">
+        @if (Current)
+        {
+            <span class="exp-pill">Current</span>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Image))
+        {
+            <img src="@Image" alt="@Company" loading="lazy" />
+        }
+        else
+        {
+            <span class="exp-fallback">@Company</span>
+        }
+    </div>
+
+    <p class="exp-title">@Title</p>
+    <p class="exp-meta">@Company · @Dates</p>
+
+    @if (!string.IsNullOrWhiteSpace(Summary))
+    {
+        <p class="exp-desc">@Summary</p>
+    }
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public string Company { get; set; } = "";
+    [Parameter] public string Dates { get; set; } = "";
+    [Parameter] public string? Summary { get; set; }
+    [Parameter] public string? Image { get; set; }
+    [Parameter] public bool Current { get; set; }
+    [Parameter] public int Tint { get; set; }
+    [Parameter] public int Delay { get; set; }
+}

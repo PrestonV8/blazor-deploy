@@ -1,0 +1,37 @@
+﻿@page "/experience"
+
+<PageTitle>Experience · Preston Viado</PageTitle>
+
+<section class="work-intro">
+    <h1>Where I've <strong>built and tested software</strong>, and what I shipped along the way.</h1>
+</section>
+
+<section class="work-grid">
+    @for (int i = 0; i < jobs.Count; i++)
+    {
+        var j = jobs[i];
+        <ExperienceCard Title="@j.Title" Company="@j.Company" Dates="@j.Dates"
+                        Summary="@j.Summary" Image="@j.Image" Current="@j.Current"
+                        Tint="@i" Delay="@(i * 100)" />
+    }
+</section>
+
+@code {
+    private record Job(string Title, string Company, string Dates,
+                       string? Summary = null, string? Image = null, bool Current = false);
+
+    // Replace these placeholders with your real positions, newest first
+    private readonly List<Job> jobs = new()
+    {
+        new("Software Developer", "Company name", "Jan 2025 – Present",
+            Summary: "One line on what you built and the result.",
+            Current: true),
+
+        new("QA Engineer", "Company name", "2023 – 2024",
+            Summary: "One line on tests you automated or bugs you caught."),
+
+        new("Software Engineering Intern", "Company name", "Summer 2022",
+            Summary: "One line on the project you owned.",
+            Image: "Images/experience/company.png"),
+    };
+}
