@@ -2,22 +2,21 @@
 
 <PageTitle>CodeLab</PageTitle>
 
-<h1>CodeLab</h1>
-
-<a href="CodeLab/QRCode">QR Code</a>
-
-<p></p>
-
-<a href="/CodeLab/WeatherApp">Weather App (IN DEVELOPMENT)</a>
-
-<p></p>
-
-<a href="/CodeLab/GraduationDateCountdown">Countdown Timer</a>
-
-<p></p>
-
-<a href="/CodeLab/Blackjack">Blackjack</a>
+<section class="work-grid">
+    @for (int i = 0; i < projects.Count; i++)
+    {
+        var p = projects[i];
+        <ProjectCard Title="@p.Title" VideoId="@p.VideoId" Image="@p.Image" Url="@p.Url" Delay="@(i * 100)" />
+    }
+</section>
 
 @code {
+    private record Project(string Title, string? VideoId = null, string? Url = null, string? Image = null);
 
+    private readonly List<Project> projects = new()
+    {
+        new("Employee Rewards Dashboard", VideoId: "O83b0wQiB50"),
+        new("Minesweeper AI Agent", VideoId: "oUe94BTp6PM"),
+        new("Hospital Management Database", VideoId: "oBtu4js3EKQ")
+    };
 }

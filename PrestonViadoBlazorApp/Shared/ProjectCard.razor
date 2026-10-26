@@ -1,0 +1,34 @@
+﻿<a href="@Link" class="project-card"
+   style="animation-delay:@(Delay)ms"
+   target="@(IsExternal ? "_blank" : null)"
+   rel="@(IsExternal ? "noopener" : null)">
+    <div class="thumb @(HasVideo ? "video" : null)">
+        <img src="@ImageSrc" alt="@Title" loading="lazy" onerror="@OnError" />
+    </div>
+    <span>@Title</span>
+</a>
+
+@code {
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public string? VideoId { get; set; }
+    [Parameter] public string? Image { get; set; }   // optional: overrides the YouTube thumbnail
+    [Parameter] public string? Url { get; set; }     // optional: defaults to the YouTube video
+    [Parameter] public int Delay { get; set; }
+
+    private bool HasVideo => !string.IsNullOrEmpty(VideoId);
+
+    private string Link => !string.IsNullOrEmpty(Url)
+        ? Url
+        : $"https://www.youtube.com/watch?v={VideoId}";
+
+    private bool IsExternal => Link.StartsWith("http", StringComparison.OrdinalIgnoreCase);
+
+    private string ImageSrc => !string.IsNullOrEmpty(Image)
+        ? Image
+        : $"https://img.youtube.com/vi/{VideoId}/maxresdefault.jpg";
+
+    // Some videos don't have a max-res thumbnail; fall back to a smaller one
+    private string? OnError => HasVideo
+        ? $"this.onerror=null;this.src='https://img.youtube.com/vi/{VideoId}/mqdefault.jpg';"
+        : null;
+}
