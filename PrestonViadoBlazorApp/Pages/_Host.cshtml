@@ -4,15 +4,29 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
+    <script>
+        (function () {
+            var t = 'light';
+            try { if (localStorage.getItem('theme') === 'dark') t = 'dark'; } catch (e) { }
+            document.documentElement.setAttribute('data-theme', t);
+        })();
+
+        window.setTheme = function (t) {
+            document.documentElement.setAttribute('data-theme', t);
+            try { localStorage.setItem('theme', t); } catch (e) { }
+        };
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="PrestonViadoBlazorApp.styles.css" rel="stylesheet" />
-    <link rel="icon" type="image/svg" href="~/PrestonLogo.svg"/>
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <component type="typeof(HeadOutlet)" render-mode="Server" />
 </head>
 <body>

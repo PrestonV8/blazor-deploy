@@ -413,3 +413,111 @@
 .nav-icon:hover svg {
     transform: scale(1.1);
 }
+
+/* ===== Theme toggle ===== */
+
+.theme-toggle {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 8px;
+    background: #f1f1f1;
+    border: 1px solid #e3e3e3;
+}
+
+    .theme-toggle button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 28px;
+        padding: 0;
+        border: none;
+        border-radius: 6px;
+        background: transparent;
+        color: #888;
+        cursor: pointer;
+        transition: background-color .2s, color .2s;
+    }
+
+    .theme-toggle svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+/* Active option, light theme */
+html[data-theme="light"] .theme-toggle .opt-light {
+    background: #fff;
+    color: #111;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .12);
+}
+
+/* ===== Dark theme ===== */
+
+body {
+    transition: background-color .3s ease, color .3s ease;
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+    html[data-theme="dark"] body {
+        background: #111;
+        color: #ececec;
+    }
+
+    html[data-theme="dark"] .brand,
+    html[data-theme="dark"] .nav-toggle {
+        color: #f2f2f2;
+    }
+
+    html[data-theme="dark"] .top-nav a {
+        color: #9a9a9a;
+    }
+
+        html[data-theme="dark"] .top-nav a:hover,
+        html[data-theme="dark"] .top-nav a.active {
+            color: #fff;
+        }
+
+    html[data-theme="dark"] .exp-meta {
+        color: #9a9a9a;
+    }
+
+    html[data-theme="dark"] .exp-desc {
+        color: #c4c4c4;
+    }
+
+    html[data-theme="dark"] .project-card .thumb {
+        background: #222;
+    }
+
+    html[data-theme="dark"] .exp-thumb.has-img {
+        background: #1c1c1c;
+    }
+
+    html[data-theme="dark"] #blazor-error-ui {
+        color: #111;
+    }
+
+    /* Toggle in dark theme (matches your screenshot) */
+    html[data-theme="dark"] .theme-toggle {
+        background: #1b1b1d;
+        border-color: #2e2e31;
+    }
+
+        html[data-theme="dark"] .theme-toggle button {
+            color: #8a8a8f;
+        }
+
+        html[data-theme="dark"] .theme-toggle .opt-dark {
+            background: #3a3a3e;
+            color: #fff;
+            box-shadow: none;
+        }
